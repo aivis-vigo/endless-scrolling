@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 
+@MainActor
 class MediaViewModel: ObservableObject {
     let mediaService: MediaService
 
@@ -18,15 +19,15 @@ class MediaViewModel: ObservableObject {
         self.mediaService = try! MediaService()
     }
 
-    func fetchTrendingImages() async -> Void {
+    func fetchTrendingImages() async {
         do {
             let res = try await mediaService.fetchTrendingImages()
-            await MainActor.run {
-                self.trendingResults.append(contentsOf: res)
-            }
+            self.trendingResults.append(contentsOf: res)
         } catch {
             self.errorMessage = error.localizedDescription
-            print("Error fetching images in MediaVieModel:fetchTrendingImages : \(error)")
+            print(
+                "Error fetching images in MediaVieModel:fetchTrendingImages : \(error)"
+            )
         }
     }
 }

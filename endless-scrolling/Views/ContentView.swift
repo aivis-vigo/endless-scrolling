@@ -9,16 +9,8 @@ import SwiftData
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var vm = MediaViewModel()
-
     var body: some View {
-        Text("Top").task {
-            await vm.fetchTrendingImages()
-        }
-        
-        List(vm.trendingResults) { image in
-            Text(image.title)
-        }
+        TrendingView()
     }
 }
 
