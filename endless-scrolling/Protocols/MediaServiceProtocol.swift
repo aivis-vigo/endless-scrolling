@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+protocol MediaServiceProtocol {
+    func fetchTrendingImages(limit: Int, offset: Int) async throws -> [Gif]
+}

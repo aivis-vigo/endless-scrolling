@@ -5,19 +5,37 @@
 //  Created by Aivis Vigo Reimarts on 09/01/2026.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
+import Combine
+
+@MainActor
+class ViewModel: ObservableObject {
+    let mediaService: MediaService
+    
+//    @Published var trendingResults: [Gif] = []
+
+    init() {
+        self.mediaService = try! MediaService()
+    }
+    
+    func fetchTrendingImages() async throws -> Void {
+        let res = try await mediaService.fetchTrendingImages()
+        print(res)
+    }
+}
 
 struct ContentView: View {
-    private let mediaService = MediaService();
-    
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @StateObject private var vm = ViewModel()
 
     var body: some View {
-        Text("Top").onAppear {
-            mediaService.fetchTrendingImages()
-        };
+        Text("Top").task {
+            do {
+                try await vm.fetchTrendingImages()
+            } catch {
+                print(error)
+            }
+        }
     }
 }
 
