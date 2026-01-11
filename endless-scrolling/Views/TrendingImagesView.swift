@@ -16,20 +16,22 @@ struct TrendingView: View {
                 Array(mediaViewModel.trendingResults.enumerated()),
                 id: \.offset
             ) { index, image in
-                AnimatedImageLoader(imageURL: URL(string: image.images.original.url)!)
-                Text(image.title)
-                    .task {
-                        guard
-                            let lastImage = mediaViewModel.trendingResults.last
-                        else { return }
-                        if mediaViewModel.trendingResults[index].id
-                            == lastImage.id
-                        {
-                            Task {
-                                await mediaViewModel.fetchTrendingImages()
-                            }
+                AnimatedImageLoader(
+                    imageURL: URL(string: image.images.original.url)!
+                )
+                .aspectRatio(1, contentMode: .fit)
+                .task {
+                    guard
+                        let lastImage = mediaViewModel.trendingResults.last
+                    else { return }
+                    if mediaViewModel.trendingResults[index].id
+                        == lastImage.id
+                    {
+                        Task {
+                            await mediaViewModel.fetchTrendingImages()
                         }
                     }
+                }
             }
         }.task {
             await mediaViewModel.fetchTrendingImages()
