@@ -7,6 +7,8 @@
 
 import Foundation
 
+// TODO: network availability handling (lack of internet connectivity)
+
 final class MediaService: MediaServiceProtocol, Sendable {
 
     static let baseURL: String = "https://api.giphy.com/v1/gifs"

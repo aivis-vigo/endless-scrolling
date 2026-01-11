@@ -16,6 +16,7 @@ struct TrendingView: View {
                 Array(mediaViewModel.trendingResults.enumerated()),
                 id: \.offset
             ) { index, image in
+                AnimatedImageLoader(imageURL: URL(string: image.images.original.url)!)
                 Text(image.title)
                     .task {
                         guard

@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		66FC96162F13B30E002D4F8A /* Gifu in Frameworks */ = {isa = PBXBuildFile; productRef = 66FC96152F13B30E002D4F8A /* Gifu */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		666B29C82F10C8B2009FF02A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66FC96162F13B30E002D4F8A /* Gifu in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 				666B29BA2F10C8B0009FF02A /* endless-scrolling */,
 				666B29CA2F10C8B2009FF02A /* endless-scrollingTests */,
 				666B29D42F10C8B2009FF02A /* endless-scrollingUITests */,
+				66FC96142F13B30E002D4F8A /* Frameworks */,
 				666B29B92F10C8B0009FF02A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +96,13 @@
 				666B29D12F10C8B2009FF02A /* endless-scrollingUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		66FC96142F13B30E002D4F8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +125,7 @@
 			);
 			name = "endless-scrolling";
 			packageProductDependencies = (
+				66FC96152F13B30E002D4F8A /* Gifu */,
 			);
 			productName = "endless-scrolling";
 			productReference = 666B29B82F10C8B0009FF02A /* endless-scrolling.app */;
@@ -195,6 +209,9 @@
 			);
 			mainGroup = 666B29AF2F10C8B0009FF02A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				66FC96132F13B04A002D4F8A /* XCRemoteSwiftPackageReference "Gifu" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 666B29B92F10C8B0009FF02A /* Products */;
 			projectDirPath = "";
@@ -578,6 +595,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		66FC96132F13B04A002D4F8A /* XCRemoteSwiftPackageReference "Gifu" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kaishin/Gifu.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		66FC96152F13B30E002D4F8A /* Gifu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 66FC96132F13B04A002D4F8A /* XCRemoteSwiftPackageReference "Gifu" */;
+			productName = Gifu;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 666B29B02F10C8B0009FF02A /* Project object */;
 }
