@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TrendingView: View {
     @StateObject private var mediaViewModel = MediaViewModel()
+    @State var selectedImage: Gif?
 
     var body: some View {
         DynamicGrid {
@@ -16,19 +17,24 @@ struct TrendingView: View {
                 Array(mediaViewModel.trendingResults.enumerated()),
                 id: \.offset
             ) { index, image in
-                AnimatedImageLoader(
-                    imageURL: URL(string: image.images.original.url)!
-                )
-                .aspectRatio(1, contentMode: .fit)
-                .task {
-                    guard
-                        let lastImage = mediaViewModel.trendingResults.last
-                    else { return }
-                    if mediaViewModel.trendingResults[index].id
-                        == lastImage.id
-                    {
-                        Task {
-                            await mediaViewModel.fetchTrendingImages()
+                NavigationLink(destination: ImageDetailsView(details: $selectedImage)) {
+                    AnimatedImageLoader(
+                        imageURL: URL(string: image.images.original.url)!
+                    )
+                    .aspectRatio(1, contentMode: .fit)
+                    .simultaneousGesture(TapGesture().onEnded {
+                        selectedImage = image
+                    })
+                    .task {
+                        guard
+                            let lastImage = mediaViewModel.trendingResults.last
+                        else { return }
+                        if mediaViewModel.trendingResults[index].id
+                            == lastImage.id
+                        {
+                            Task {
+                                await mediaViewModel.fetchTrendingImages()
+                            }
                         }
                     }
                 }
