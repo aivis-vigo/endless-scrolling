@@ -9,7 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        TrendingView()
+        TabView {
+            TrendingView()
+                .tabItem { Label("Home", systemImage: "house") }
+            SearchImageView()
+                .tabItem { Label("Search", systemImage: "magnifyingglass") }
+        }
     }
 }
 
