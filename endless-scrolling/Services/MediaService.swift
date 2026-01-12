@@ -6,8 +6,7 @@
 //
 
 import Foundation
-
-// TODO: network availability handling (lack of internet connectivity)
+import Network
 
 final class MediaService: MediaServiceProtocol, Sendable {
 

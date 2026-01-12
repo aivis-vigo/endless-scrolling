@@ -11,6 +11,9 @@ enum GiphyError: Error {
     case invalidURL
     case invalidResponse
     case invalidData
+    case noInternetConnection
+    case timeout
+    case rateLimitExceeded
 
     var message: String {
         switch self {
@@ -20,6 +23,12 @@ enum GiphyError: Error {
             return "The response from the API was invalid"
         case .invalidData:
             return "Data from the response was invalid"
+        case .noInternetConnection:
+            return "No internet connection. Check your network settings"
+        case .timeout:
+            return "The request timed out. Try again"
+        case .rateLimitExceeded:
+            return "The rate limit for this API key has been exceeded. Try again later"
         }
     }
 }
