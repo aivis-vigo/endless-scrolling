@@ -15,7 +15,7 @@ enum ConfigManager {
             let dict = NSDictionary(contentsOfFile: path),
             let value = dict[key] as? String, !value.isEmpty
         else {
-            throw ConfigError.missingValue(key: key, file: file)
+            fatalError("Missing value in \(file) for key: \(key)")
         }
         return value
     }
