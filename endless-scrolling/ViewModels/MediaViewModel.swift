@@ -47,7 +47,7 @@ class MediaViewModel: ObservableObject {
     func fetchImagesByQuery(string: String) async {
         do {
             let res = try await mediaService.fetchImagesByQuery(string: string)
-            self.searchResults.append(contentsOf: res)
+            self.searchResults = res
         } catch {
             self.errorMessage = error.localizedDescription
             print("Error fetching images in MediaViewModel:fetchImagesByQuery")
