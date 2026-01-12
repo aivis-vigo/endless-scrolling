@@ -10,10 +10,16 @@ import SwiftUI
 struct DynamicGrid<Content: View>: View {
     let content: () -> Content
     
-    let columns: [GridItem] = [
-        GridItem(.flexible(), spacing: 6, alignment: nil),
-        GridItem(.flexible(), spacing: 6, alignment: nil)
-    ]
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
+    var isLandscapeMode: Bool {
+        verticalSizeClass == .compact
+    }
+    
+    var columns: [GridItem] {
+        Array(repeating: GridItem(.flexible(), alignment: nil), count: isLandscapeMode ? 3 : 2)
+    }
 
     var body: some View {
         NavigationStack {
