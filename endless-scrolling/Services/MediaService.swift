@@ -41,11 +41,38 @@ final class MediaService: MediaServiceProtocol, Sendable {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             let res = try decoder.decode(GiphyResponse.self, from: data)
-            
+
             Task { @MainActor in
                 self.offset += res.data.count
             }
-            
+
+            return Array(res.data)
+        } catch {
+            throw GiphyError.invalidData
+        }
+    }
+
+    func fetchImagesByQuery(string searchString: String) async throws -> [Gif] {
+        let endpoint =
+            "\(Self.baseURL)/search?api_key=\(self.apiKey)&q=\(searchString)&limit=25&offset=0&rating=g&bundle=messaging_non_clips"
+
+        guard let url = URL(string: endpoint) else {
+            throw GiphyError.invalidURL
+        }
+
+        let (data, response) = try await URLSession.shared.data(from: url)
+
+        guard let response = response as? HTTPURLResponse,
+            response.statusCode == 200
+        else {
+            throw GiphyError.invalidResponse
+        }
+
+        do {
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            let res = try decoder.decode(GiphyResponse.self, from: data)
+
             return Array(res.data)
         } catch {
             throw GiphyError.invalidData
