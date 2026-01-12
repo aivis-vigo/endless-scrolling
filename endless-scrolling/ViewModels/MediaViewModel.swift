@@ -23,6 +23,13 @@ class MediaViewModel: ObservableObject {
     init() {
         self.mediaService = try! MediaService()
 
+        /*
+            .debounce - publish elements after 0.5 seconds between the events
+            .sink - subscribes to a publisher (userInputSearchSubject - emits values over time)
+        
+            after user has stopped typing for 0.5 seconds a value is emitted and
+            async API call is executed
+        */
         userInputSearchSubject.debounce(for: 0.5, scheduler: RunLoop.main).sink
         { [weak self] prompt in
             self?.trendingResults.removeAll()
@@ -54,6 +61,10 @@ class MediaViewModel: ObservableObject {
         }
     }
 
+    /*
+        every value that has been typed in a search bar is sent to publisher to
+        track when there is a 0.5 second interval break between keystrokes
+    */
     func updateSearch(string userInput: String) {
         self.userInputSearchSubject.send(userInput)
     }

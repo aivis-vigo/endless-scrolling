@@ -56,7 +56,9 @@ struct SearchImageView: View {
                 mediaViewModel.updateSearch(string: newValue)
             }
         case .unsatisfied:
-            Text("You're not connected")
+            VStack {
+                Label("You're not connected", systemImage: "wifi.slash")
+            }
         case .requiresConnection:
             Text("Connecting...")
         default:

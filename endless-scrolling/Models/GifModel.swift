@@ -22,9 +22,16 @@ struct Gif: Identifiable, Codable {
 
 struct Images: Codable {
     let original: Original
+    let fixedHeight: FixedHeight
 }
 
 struct Original: Codable {
+    let url: String
+    let height: String
+    let width: String
+}
+
+struct FixedHeight: Codable {
     let url: String
     let height: String
     let width: String

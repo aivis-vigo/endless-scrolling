@@ -9,14 +9,17 @@ import SwiftUI
 
 struct DynamicGrid<Content: View>: View {
     let content: () -> Content
+    
+    let columns: [GridItem] = [
+        GridItem(.flexible(), spacing: 6, alignment: nil),
+        GridItem(.flexible(), spacing: 6, alignment: nil)
+    ]
 
     var body: some View {
         NavigationStack {
-            Grid {
-                ScrollView {
-                    LazyVStack {
-                        content()
-                    }
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 8) {
+                    content()
                 }
             }
         }

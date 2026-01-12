@@ -14,13 +14,13 @@ struct AnimatedImageLoader: UIViewRepresentable {
     func makeUIView(context: Context) -> UIView {
         let container = UIView()
 
-        //        adding loading indicator
+        // add activity indicator to the container
         let activityIndicator = UIActivityIndicatorView(style: .medium)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.startAnimating()
         container.addSubview(activityIndicator)
 
-        //        adding gif image
+        // add gif image to the container
         let imageView = GIFImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -47,8 +47,8 @@ struct AnimatedImageLoader: UIViewRepresentable {
         imageView.animate(
             withGIFURL: imageURL,
             loopBlock: {
-                //            stop loading loading indicators animation and remove it from the container
-                //            make GIF go from completely transparent to fully visible
+                // stop loading loading indicators animation and remove it from the container
+                // make GIF go from completely transparent to fully visible
                 DispatchQueue.main.async {
                     activityIndicator.stopAnimating()
                     activityIndicator.removeFromSuperview()

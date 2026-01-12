@@ -20,6 +20,7 @@ class NetworkMonitor: ObservableObject {
         startMonitoring()
     }
 
+    // used to prevent memory leaks when object is destoryed
     deinit {
         monitor?.cancel()
         monitor = nil
@@ -28,6 +29,14 @@ class NetworkMonitor: ObservableObject {
     private func startMonitoring() {
         monitor = NWPathMonitor()
 
+        /*
+             @MainActor is used to run this part on the main thread because it affects UI changes
+        
+             Status codes:
+                .satisfied = connected to internet
+                .unsatisfied = no internet connection
+                .requiresConnection = connection not yet established
+         */
         monitor?.pathUpdateHandler = { [weak self] path in
             Task { @MainActor [weak self] in
                 self?.path = path
@@ -35,6 +44,7 @@ class NetworkMonitor: ObservableObject {
             }
         }
 
+        // Start monitoring on a background thread, helping main thread to run more smoothly for the UI changes
         monitor?.start(queue: .global(qos: .background))
     }
 

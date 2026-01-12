@@ -29,7 +29,9 @@ struct ImageDetailsView: View {
             Text(details.rating)
             Text(details.importDatetime)
         case .unsatisfied:
-            Text("You're not connected")
+            VStack {
+                Label("You're not connected", systemImage: "wifi.slash")
+            }
         case .requiresConnection:
             Text("Connecting...")
         default:
