@@ -28,6 +28,7 @@ struct ImageDetailsView: View {
                             AnimatedImageLoader(
                                 imageURL: url
                             )
+                            .accessibilityIdentifier("selectedGif")
                             .aspectRatio(1, contentMode: .fit)
                         } else {
                             Text("Invalid Image URL")
@@ -46,6 +47,7 @@ struct ImageDetailsView: View {
                         AnimatedImageLoader(
                             imageURL: url
                         )
+                        .accessibilityIdentifier("selectedGif")
                         .aspectRatio(1, contentMode: .fit)
                     } else {
                         Text("Invalid Image URL")

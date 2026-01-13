@@ -30,6 +30,7 @@ struct TrendingView: View {
                                 AnimatedImageLoader(
                                     imageURL: imageUrl
                                 )
+                                .accessibilityIdentifier("trendingGif_\(index)")
                                 .aspectRatio(contentMode: .fill)
                                 .frame(maxWidth: .infinity)
                                 .clipped()
@@ -68,6 +69,7 @@ struct TrendingView: View {
                 }
                 .padding(.horizontal, 6)
             }
+            .accessibilityIdentifier("trendingImagesGrid")
             .task {
                 await mediaViewModel.fetchTrendingImages()
             }
