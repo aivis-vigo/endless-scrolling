@@ -13,6 +13,7 @@ struct AnimatedImageLoader: UIViewRepresentable {
 
     func makeUIView(context: Context) -> UIView {
         let container = UIView()
+        container.accessibilityIdentifier = "gifContainer"
 
         // add activity indicator to the container
         let activityIndicator = UIActivityIndicatorView(style: .medium)
@@ -25,6 +26,8 @@ struct AnimatedImageLoader: UIViewRepresentable {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.alpha = 0
+        imageView.accessibilityIdentifier = "gifImage"
+        imageView.isAccessibilityElement = true
         container.addSubview(imageView)
 
         NSLayoutConstraint.activate([
