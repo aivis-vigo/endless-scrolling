@@ -39,11 +39,6 @@
 			path = "endless-scrolling";
 			sourceTree = "<group>";
 		};
-		666B29CA2F10C8B2009FF02A /* endless-scrollingTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "endless-scrollingTests";
-			sourceTree = "<group>";
-		};
 		666B29D42F10C8B2009FF02A /* endless-scrollingUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "endless-scrollingUITests";
@@ -81,7 +76,6 @@
 			isa = PBXGroup;
 			children = (
 				666B29BA2F10C8B0009FF02A /* endless-scrolling */,
-				666B29CA2F10C8B2009FF02A /* endless-scrollingTests */,
 				666B29D42F10C8B2009FF02A /* endless-scrollingUITests */,
 				66FC96142F13B30E002D4F8A /* Frameworks */,
 				666B29B92F10C8B0009FF02A /* Products */,
@@ -143,9 +137,6 @@
 			);
 			dependencies = (
 				666B29C92F10C8B2009FF02A /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				666B29CA2F10C8B2009FF02A /* endless-scrollingTests */,
 			);
 			name = "endless-scrollingTests";
 			packageProductDependencies = (
