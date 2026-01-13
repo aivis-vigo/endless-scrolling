@@ -19,10 +19,30 @@ struct ImageDetailsView: View {
     }
 
     var body: some View {
-        switch networkMontior.path?.status {
-        case .satisfied:
-            if isLandscapeMode {
-                HStack {
+        VStack {
+            switch networkMontior.path?.status {
+            case .satisfied:
+                if isLandscapeMode {
+                    HStack {
+                        VStack {
+                            if let url = URL(string: details.images.original.url) {
+                                AnimatedImageLoader(
+                                    imageURL: url
+                                )
+                                .accessibilityIdentifier("selectedGif")
+                                .aspectRatio(1, contentMode: .fit)
+                            } else {
+                                Text("Invalid Image URL")
+                            }
+                        }
+                        VStack {
+                            Text(details.title)
+                            Text(details.username)
+                            Text(details.rating)
+                            Text(details.importDatetime)
+                        }
+                    }
+                } else {
                     VStack {
                         if let url = URL(string: details.images.original.url) {
                             AnimatedImageLoader(
@@ -33,39 +53,22 @@ struct ImageDetailsView: View {
                         } else {
                             Text("Invalid Image URL")
                         }
-                    }
-                    VStack {
                         Text(details.title)
                         Text(details.username)
                         Text(details.rating)
                         Text(details.importDatetime)
                     }
                 }
-            } else {
+            case .unsatisfied:
                 VStack {
-                    if let url = URL(string: details.images.original.url) {
-                        AnimatedImageLoader(
-                            imageURL: url
-                        )
-                        .accessibilityIdentifier("selectedGif")
-                        .aspectRatio(1, contentMode: .fit)
-                    } else {
-                        Text("Invalid Image URL")
-                    }
-                    Text(details.title)
-                    Text(details.username)
-                    Text(details.rating)
-                    Text(details.importDatetime)
+                    Label("You're not connected", systemImage: "wifi.slash")
                 }
+            case .requiresConnection:
+                Text("Connecting...")
+            default:
+                Text("Content Unknown")
             }
-        case .unsatisfied:
-            VStack {
-                Label("You're not connected", systemImage: "wifi.slash")
-            }
-        case .requiresConnection:
-            Text("Connecting...")
-        default:
-            Text("Content Unknown")
         }
+        .accessibilityIdentifier("selectedGif")
     }
 }
