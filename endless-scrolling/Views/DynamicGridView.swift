@@ -11,7 +11,6 @@ struct DynamicGrid<Content: View>: View {
     let content: () -> Content
     
     @Environment(\.verticalSizeClass) var verticalSizeClass
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var isLandscapeMode: Bool {
         verticalSizeClass == .compact

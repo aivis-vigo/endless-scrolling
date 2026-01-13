@@ -10,24 +10,52 @@ import SwiftUI
 
 struct ImageDetailsView: View {
     @EnvironmentObject var networkMontior: NetworkMonitor
+    @Environment(\.verticalSizeClass) var verticalSizeClass
 
     var details: Gif
+    
+    var isLandscapeMode: Bool {
+        verticalSizeClass == .compact
+    }
 
     var body: some View {
         switch networkMontior.path?.status {
         case .satisfied:
-            if let url = URL(string: details.images.original.url) {
-                AnimatedImageLoader(
-                    imageURL: url
-                )
-                .aspectRatio(1, contentMode: .fit)
+            if isLandscapeMode {
+                HStack {
+                    VStack {
+                        if let url = URL(string: details.images.original.url) {
+                            AnimatedImageLoader(
+                                imageURL: url
+                            )
+                            .aspectRatio(1, contentMode: .fit)
+                        } else {
+                            Text("Invalid Image URL")
+                        }
+                    }
+                    VStack {
+                        Text(details.title)
+                        Text(details.username)
+                        Text(details.rating)
+                        Text(details.importDatetime)
+                    }
+                }
             } else {
-                Text("Invalid Image URL")
+                VStack {
+                    if let url = URL(string: details.images.original.url) {
+                        AnimatedImageLoader(
+                            imageURL: url
+                        )
+                        .aspectRatio(1, contentMode: .fit)
+                    } else {
+                        Text("Invalid Image URL")
+                    }
+                    Text(details.title)
+                    Text(details.username)
+                    Text(details.rating)
+                    Text(details.importDatetime)
+                }
             }
-            Text(details.title)
-            Text(details.username)
-            Text(details.rating)
-            Text(details.importDatetime)
         case .unsatisfied:
             VStack {
                 Label("You're not connected", systemImage: "wifi.slash")
